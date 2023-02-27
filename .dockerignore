@@ -1,0 +1,9 @@
+target
+venv
+docker_out
+build
+dist
+.eggs
+afl-fuzz/in-*
+afl-fuzz/out-*
+fuzz

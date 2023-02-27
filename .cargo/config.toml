@@ -1,0 +1,19 @@
+# Don't forget to install lld
+# ls ls /usr//bin/ld*
+[build]
+# used for perf tracking
+# rustflags = ["-C", "link-args=-fuse-ld=lld","-C", "link-args=-fno-omit-frame-pointer","-C", "force-frame-pointers=yes"]
+# Used to test on other target
+#target = "x86_64-unknown-linux-gnu"
+
+[target.x86_64-apple-darwin]
+rustflags = [
+    "-C", "link-arg=-undefined",
+    "-C", "link-arg=dynamic_lookup",
+]
+
+[target.aarch64-apple-darwin]
+rustflags = [
+    "-C", "link-arg=-undefined",
+    "-C", "link-arg=dynamic_lookup",
+]

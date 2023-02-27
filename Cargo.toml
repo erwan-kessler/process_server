@@ -1,0 +1,51 @@
+[package]
+name = "process_server"
+version = "0.1.0"
+edition = "2021"
+authors = ["Erwan KESSLER"]
+
+[lib]
+name = "libprocess_server"
+crate-type = ["rlib", "cdylib", "staticlib"]
+
+[dev-dependencies]
+env_logger = "*"
+tracing = { version = "0.1", default-features = false }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["env-filter", "fmt"] }
+test-log = { version = "0.2.11", features = ["trace"] }
+
+[dependencies]
+tracing = "0.1.37"
+thiserror = "1.0.38"
+byteorder = "1.4.3"
+parking_lot = "0.12.1"
+serde = { version = "1.0.152", features = ["derive"] }
+base64 = "0.21.0"
+tracing-subscriber = "0.3.16"
+sysinfo = "0.28.0"
+lazy_static = "1.4.0"
+derive_builder = "0.12.0"
+clap = { version = "4.1.6", features = ["derive"] }
+
+# Server part
+warp = { version = "0.3.3", default-features = false, features = [] } # Note multipart is now a deprecated dep, don't use it
+tokio = { version = "1.25.0", features = ["full"], optional = true }
+async-std = { version = "1.12.0", optional = true }
+tokio-stream = "0.1.12"
+async-trait = "0.1.64"
+futures-util = "0.3.26"
+
+[target.'cfg(unix)'.dependencies]
+users = "0.11.0"
+procfs = "0.15.1"
+psutil = "3.2.2"
+
+[workspace]
+members = [
+    #    "afl-fuzz"
+]
+
+[features]
+default = ["tokio"]
+tokio = ["dep:tokio"]
+async-std = ["dep:async-std"]
